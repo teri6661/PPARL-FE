@@ -10,7 +10,7 @@ const Content = () => {
         <div className="row mb-4">
           <div className="col-12 text-center">
             {/* Judul utama dengan warna ungu dari template */}
-            <h1 className="fw-bold mb-2 text-primary-gradient" style={{ fontSize: '2.5rem' }}>
+            <h1 className="fw-bolder mb-2 text-primary-gradient" style={{ fontSize: '2.5rem' }}>
               PPEARL Management System
             </h1>
             {/* Sub-judul deskripsi */}

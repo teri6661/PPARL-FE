@@ -60,8 +60,8 @@ const Sidebar = forwardRef((props, ref) => {
       <div>
         {/* Header logo */}
         <div className="brand-logo d-flex align-items-center justify-content-between border-bottom border-2">
-          <a
-            href="#"
+          <Link
+            href="/dashboard"
             className="text-nowrap logo-img"
           >
             <img
@@ -69,20 +69,20 @@ const Sidebar = forwardRef((props, ref) => {
               className="dark-logo"
               alt="Logo-Dark"
             />
-          </a>
+          </Link>
           <button
             className="sidebartoggler ms-auto text-decoration-none fs-5 d-block d-xl-none border-0 bg-transparent"
             aria-label="Close sidebar"
             onClick={() => handleCloseSidebar()}
           >
-            <IoClose />
+            <IoClose size={20} />
           </button>
 
         </div>
 
         {/* Sidebar navigation */}
         <SimpleBar className="sidebar-nav scroll-sidebar" ref={barRef} style={{ visibility: mounted ? "visible" : "hidden" }}>
-          <ul id="sidebarnav">
+          <ul id="sidebarnav" className="mt-3">
 
             {/* Dashboard */}
             <li className="sidebar-item my-2">
@@ -220,8 +220,8 @@ const Sidebar = forwardRef((props, ref) => {
               />
             </div>
             <div className="john-title">
-              <h6 className="mb-0 fs-4 fw-semibold">Mathew</h6>
-              <span className="fs-2">Designer</span>
+              <h6 className="mb-0 fs-4 fw-semibold">Zebew</h6>
+              <span className="fs-2">Admin</span>
             </div>
             <button
               className="border-0 bg-transparent text-primary ms-auto"
