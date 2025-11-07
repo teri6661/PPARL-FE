@@ -1,17 +1,27 @@
 import { LuActivity, LuArrowUpRight, LuAward, LuBadge, LuBriefcase, LuFolderOpen, LuSmile, LuStar, LuTrendingUp, LuUser, LuUserCheck, LuZap } from "react-icons/lu";
 
-const Table = () => {
+const Table = ({ data, onEdit, totalData }) => {
+
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case 'Active':
+        return <span className="badge text-bg-success fs-2">Active</span>;
+      case 'Inactive':
+        return <span className="badge text-bg-warning fs-2">Inactive</span>;
+      default:
+        return <span className="badge text-bg-secondary fs-2">{status}</span>;
+    }
+  };
 
   return (
     <div className="row">
       <div className="table-responsive">
-        {/* Wrapper div untuk menerapkan rounded, overflow-hidden, dan border luar yang mulus */}
         <div className="rounded-4 shadow-sm overflow-hidden border border-gray-200">
           <table className="table align-middle table-hover table-bordered mb-0">
-            {/* Tambahkan class bg-secondary untuk latar belakang abu-abu gelap dan text-white untuk teks putih */}
             <thead className="bg-primary">
               <tr>
                 <th>User</th>
+                <th>Email</th>
                 <th>Role</th>
                 <th>Status</th>
                 <th>Created</th>
@@ -19,41 +29,47 @@ const Table = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <div className="d-flex align-items-center gap-3">
-                    <span className="avatar-initial">AU</span>
-                    <div>
-                      <div className="fw-bold">Admin User</div>
-                      <div className="text-muted small">admin@gpearl.com</div>
+              {data.map((account) => (
+                <tr key={account.uuid}>
+                  <td>
+                    <div className="d-flex align-items-center gap-3">
+                      <span className="avatar-initial">
+                        {account.fullname
+                          .split(" ")
+                          .map((word) => word[0])
+                          .join("")
+                          .substring(0, 2)
+                          .toUpperCase()}
+                      </span>
+                      <div>
+                        <div className="fw-bold">{account.fullname}</div>
+                        <div className="text-muted small">{account.role.toLowerCase()}@{account.fullname.replace(/\s/g, '').toLowerCase()}.com</div>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td><span className="badge text-bg-light">Technology</span></td>
-                <td>San Francisco, CA</td>
-                <td>John Smith</td>
-                <td><button className="btn btn-sm btn-outline-primary me-2">View</button><button className="btn btn-sm btn-outline-secondary">Edit</button></td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="d-flex align-items-center gap-3">
-                    <span className="avatar-initial">AU</span>
-                    <div>
-                      <div className="fw-bold">Admin User</div>
-                      <div className="text-muted small">admin@gpearl.com</div>
-                    </div>
-                  </div>
-                </td>
-                <td><span className="badge text-bg-light text-purple-500">Consulting</span></td>
-                <td>New York, NY</td>
-                <td>Emma Wilson</td>
-                <td><button className="btn btn-sm btn-outline-primary me-2">View</button><button className="btn btn-sm btn-outline-secondary">Edit</button></td>
-              </tr>
+                  </td>
+
+                  <td>{account.email}</td>
+
+                  <td><span className="badge text-bg-primary fs-2">{account.role}</span></td>
+
+                  <td>{getStatusBadge(account.status)}</td>
+
+                  <td>{account.created_at}</td>
+
+                  <td>
+                    {/* <button className="btn btn-sm btn-outline-primary me-2">View</button> */}
+                    <button
+                      className="btn btn-sm btn-outline-secondary"
+                      onClick={() => onEdit(account)}
+                    >
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-        {/* Pindahkan "Showing results" di luar div wrapper tabel */}
-        <small className="text-muted mt-2 d-block">Showing 2 of 2 results</small>
       </div>
     </div>
   )

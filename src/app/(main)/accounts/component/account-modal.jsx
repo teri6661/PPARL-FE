@@ -1,8 +1,10 @@
 'use client';
 import { useEffect, useState } from "react";
 import { Modal, Button, Form, InputGroup, Row, Col } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { LuEye, LuEyeOff } from "react-icons/lu"; // ikon untuk show/hide password
+import Select from "react-select";
+import { selectStyle } from "@/app/utilities/select";
 
 const AccountModal = ({ show, onHide, mode = "add", initialData = {}, onSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,6 +13,7 @@ const AccountModal = ({ show, onHide, mode = "add", initialData = {}, onSubmit }
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -40,24 +43,24 @@ const AccountModal = ({ show, onHide, mode = "add", initialData = {}, onSubmit }
   useEffect(() => {
     if (mode === "edit" && initialData) {
       reset({
-        name: initialData.name || "",
+        fullname: initialData.fullname || "",
         email: initialData.email || "",
         role: initialData.role || "Admin",
         password: "",
         status: initialData.status || "Active",
       });
     } else {
-      reset({ name: "", email: "", role: "Admin", password: "", status: "Active" });
+      reset({ fullname: "", email: "", role: "Admin", password: "", status: "Active" });
     }
   }, [mode, initialData, show, reset]);
 
   const handleFormSubmit = (data) => {
     onSubmit(data);
-    onHide(); // tutup modal
+    // onHide(); // tutup modal
   };
 
   return (
-    <Modal show={show} onHide={onHide} centered backdrop="static" size="lg">
+    <Modal show={show} onHide={onHide} centered backdrop="static" size="lg" className="custom-modal">
       <Modal.Header closeButton>
         <Modal.Title>
           {mode === "add" ? (
@@ -103,107 +106,164 @@ const AccountModal = ({ show, onHide, mode = "add", initialData = {}, onSubmit }
             <Col md={6}>
               <Form.Group className="mb-3">
                 <Form.Label>Role</Form.Label>
-                <Form.Select
-                  {...register("role", {
-                    required: "Role is required",
-                    validate: (value) => value !== "" || "Please select a role",
-                  })}
-                  isInvalid={!!errors.role}
-                >
-                  {roleOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </Form.Select>
+                <Controller
+                  name="role"
+                  control={control}
+                  rules={{ required: "Role is required" }}
+                  render={({ field, fieldState: { error } }) => (
+                    <Select
+                      {...field}
+                      styles={selectStyle(!!error)}
+                      options={roleOptions}
+                      classNamePrefix={errors.role ? "react-select-invalid" : "react-select"}
+                      onChange={(val) => field.onChange(val.value)} // Simpan hanya value
+                      value={roleOptions.find((c) => c.value === field.value)}
+                      placeholder="Select role..."
+                    />
+                  )}
+                />
                 {errors.role && (
-                  <Form.Control.Feedback type="invalid">
-                    {errors.role.message}
-                  </Form.Control.Feedback>
+                  <div className="invalid-feedback d-block">{errors.role.message}</div>
                 )}
               </Form.Group>
             </Col>
           </Row>
-          <Row>
-            <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: "Invalid email format",
-                    },
-                  })}
-                  placeholder="Email"
-                  isInvalid={!!errors.email}
-                />
-                {errors.email && (
-                  <Form.Control.Feedback type="invalid">
-                    {errors.email.message}
-                  </Form.Control.Feedback>
-                )}
-              </Form.Group>
-            </Col>
-            <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
-                <InputGroup>
+
+          {mode === "add" ? (
+            <>
+              <Row>
+                <Col md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      type="email"
+                      {...register("email", {
+                        required: "Email is required",
+                        pattern: {
+                          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                          message: "Invalid email format",
+                        },
+                      })}
+                      placeholder="Email"
+                      isInvalid={!!errors.email}
+                    />
+                    {errors.email && (
+                      <Form.Control.Feedback type="invalid">
+                        {errors.email.message}
+                      </Form.Control.Feedback>
+                    )}
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Password</Form.Label>
+                    <InputGroup>
+                      <Form.Control
+                        type={showPassword ? "text" : "password"}
+                        {...register("password", {
+                          required: mode === "add" ? "Password is required" : false,
+                          minLength: {
+                            value: 6,
+                            message: "Password must be at least 6 characters",
+                          },
+                        })}
+                        placeholder={mode === "add" ? "Password" : "Leave blank to keep current password"}
+                        isInvalid={!!errors.password}
+                      />
+                      <Button
+                        variant="dark"
+                        className="rounded-end"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        type="button"
+                      >
+                        {showPassword ? <LuEyeOff size={20} /> : <LuEye size={20} />}
+                      </Button>
+                      {errors.password && (
+                        <Form.Control.Feedback type="invalid">
+                          {errors.password.message}
+                        </Form.Control.Feedback>
+                      )}
+                    </InputGroup>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Status</Form.Label>
+                    <Controller
+                      name="status"
+                      control={control}
+                      rules={{ required: "Status is required" }}
+                      render={({ field, fieldState: { error } }) => (
+                        <Select
+                          {...field}
+                          styles={selectStyle(!!error)}
+                          options={statusOptions}
+                          classNamePrefix={errors.status ? "react-select-invalid" : "react-select"}
+                          onChange={(val) => field.onChange(val.value)} // simpan hanya value
+                          value={statusOptions.find((c) => c.value === field.value)}
+                          placeholder="Select status..."
+                        />
+                      )}
+                    />
+                    {errors.status && (
+                      <div className="invalid-feedback d-block">{errors.status.message}</div>
+                    )}
+                  </Form.Group>
+                </Col>
+              </Row>
+            </>
+          ) : (
+            <Row>
+              <Col md={6}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Email</Form.Label>
                   <Form.Control
-                    type={showPassword ? "text" : "password"}
-                    {...register("password", {
-                      required: mode === "add" ? "Password is required" : false,
-                      minLength: {
-                        value: 6,
-                        message: "Password must be at least 6 characters",
+                    type="email"
+                    {...register("email", {
+                      required: "Email wajib diisi",
+                      pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: "Format email tidak valid",
                       },
                     })}
-                    placeholder={mode === "add" ? "Password" : "Leave blank to keep current password"}
-                    isInvalid={!!errors.password}
+                    placeholder="Email"
+                    isInvalid={!!errors.email}
                   />
-                  <Button
-                    variant="dark"
-                    className="rounded-end"
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    type="button"
-                  >
-                    {showPassword ? <LuEyeOff size={20} /> : <LuEye size={20} />}
-                  </Button>
-                  {errors.password && (
+                  {errors.email && (
                     <Form.Control.Feedback type="invalid">
-                      {errors.password.message}
+                      {errors.email.message}
                     </Form.Control.Feedback>
                   )}
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label>Status</Form.Label>
-                <Form.Select
-                  {...register("status", {
-                    required: "Status is required",
-                  })}
-                  isInvalid={!!errors.status}
-                >
-                  {statusOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </Form.Select>
-                {errors.status && (
-                  <Form.Control.Feedback type="invalid">
-                    {errors.status.message}
-                  </Form.Control.Feedback>
-                )}
-              </Form.Group>
-            </Col>
-          </Row>
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Status</Form.Label>
+                  <Controller
+                    name="status"
+                    control={control}
+                    rules={{ required: "Status is required" }}
+                    render={({ field, fieldState: { error } }) => (
+                      <Select
+                        {...field}
+                        styles={selectStyle(!!error)}
+                        options={statusOptions}
+                        classNamePrefix={errors.status ? "react-select-invalid" : "react-select"}
+                        onChange={(val) => field.onChange(val.value)} // simpan hanya value
+                        value={statusOptions.find((c) => c.value === field.value)}
+                        placeholder="Select status..."
+                      />
+                    )}
+                  />
+                  {errors.status && (
+                    <div className="invalid-feedback d-block">{errors.status.message}</div>
+                  )}
+                </Form.Group>
+              </Col>
+            </Row>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="outline-danger" onClick={onHide}>

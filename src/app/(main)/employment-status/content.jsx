@@ -12,11 +12,11 @@ const Footer = () => {
           {/* 1. Header Halaman */}
           <div className="d-flex justify-content-between align-items-center p-3 mb-4 rounded-4 shadow-sm border border-gray-400" style={{ backgroundColor: '#fbf5fd' }}>
             <div>
-              <p className="fs-6 fw-bolder text-primary-gradient mb-0">CS Projects</p>
-              <p className="text-dark mb-0">Manage and track all your projects</p>
+              <p className="fs-6 fw-bolder text-primary-gradient mb-0">Employment Status</p>
+              <p className="text-dark mb-0">Manage employment status management</p>
             </div>
             <button className="btn btn-primary-gradient fw-bold d-flex align-items-center shadow-sm">
-              <LuPlus size={20} className="me-2" /> Add Project
+              <LuPlus size={20} className="me-2" /> Add New
             </button>
           </div>
 

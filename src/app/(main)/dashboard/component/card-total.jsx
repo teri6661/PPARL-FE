@@ -15,7 +15,7 @@ const CardTotal = () => {
             <p className="card-title mb-2 fs-4 fw-medium">Total Experts</p>
             <div className="d-flex justify-content-between align-items-start">
               {/* Nilai Utama */}
-              <h2 className="display-5 fw-bold" style={{ color: '#9b18f4' }}>7</h2>
+              <h2 className="display-5 fw-bolder" style={{ color: '#9b18f4' }}>7</h2>
               {/* Ikon di Samping */}
               <div className="p-3 text-white rounded-circle" style={{ background: '#9b18f4' }}>
                 {/* Ganti dengan ikon User yang paling cocok */}
@@ -63,7 +63,7 @@ const CardTotal = () => {
             <p className="card-title mb-2 fs-4 fw-medium">Active Projects</p>
             <div className="d-flex justify-content-between align-items-start">
               {/* Nilai Utama */}
-              <h2 className="display-5 fw-bold" style={{ color: '#3b82f6' }}>2</h2>
+              <h2 className="display-5 fw-bolder" style={{ color: '#3b82f6' }}>2</h2>
               {/* Ikon di Samping */}
               <div className="p-3 text-white rounded-circle" style={{ background: '#3b82f6' }}>
                 {/* Ganti dengan ikon Briefcase/Folder/Project yang paling cocok */}
@@ -111,7 +111,7 @@ const CardTotal = () => {
             <p className="card-title mb-2 fs-4 fw-medium">Client Satisfaction</p>
             <div className="d-flex justify-content-between align-items-start">
               {/* Nilai Utama */}
-              <h2 className="display-5 fw-bold" style={{ color: '#ec4899' }}>4.7</h2>
+              <h2 className="display-5 fw-bolder" style={{ color: '#ec4899' }}>4.7</h2>
               {/* Ikon di Samping */}
               <div className="p-3 text-white rounded-circle" style={{ background: '#ec4899' }}>
                 {/* Ganti dengan ikon Senyum/Hati yang paling cocok */}
@@ -159,7 +159,7 @@ const CardTotal = () => {
             <p className="card-title mb-2 fs-4 fw-medium">System Activity</p>
             <div className="d-flex justify-content-between align-items-start">
               {/* Nilai Utama */}
-              <h2 className="display-5 fw-bold" style={{ color: '#10b981' }}>12</h2>
+              <h2 className="display-5 fw-bolder" style={{ color: '#10b981' }}>12</h2>
               {/* Ikon di Samping */}
               <div className="p-3 text-white rounded-circle" style={{ background: '#10b981' }}>
                 {/* Ganti dengan ikon Activity/Heartbeat yang paling cocok */}

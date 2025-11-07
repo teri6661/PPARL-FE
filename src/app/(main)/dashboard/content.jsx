@@ -1,6 +1,7 @@
 import { LuFolderOpen, LuHandshake, LuMonitorSpeaker, LuPlus, LuUserCheck, LuUsers } from "react-icons/lu";
 import CardTotal from "./component/card-total";
 import Link from "next/link";
+import ChartPanel from "./component/chart-panel";
 
 const Content = () => {
 
@@ -60,6 +61,8 @@ const Content = () => {
 
         {/* Ini adalah tempat untuk meletakkan 4 card statistik yang sebelumnya kita buat */}
         <CardTotal />
+        {/* Ini adalah tempat untuk meletakkan chart */}
+        <ChartPanel />
 
       </div>
     </div>

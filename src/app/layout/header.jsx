@@ -1,12 +1,35 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-import { LuMail, LuUser } from "react-icons/lu";
+import { useEffect, useRef, useState } from "react";
+import { LuBellRing, LuMail, LuUser } from "react-icons/lu";
 import { TbMenu2 } from "react-icons/tb";
 import { GoKebabHorizontal } from "react-icons/go";
+import SimpleBar from "simplebar-react";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const dropdownRefs = useRef({});
+
+  const toggleDropdown = (name) => {
+    setActiveDropdown(prev => (prev === name ? null : name));
+  };
+
+  // Tutup semua dropdown kalau klik di luar
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      const clickedInsideAnyDropdown = Object.values(dropdownRefs.current).some(ref =>
+        ref && ref.contains(e.target)
+      );
+
+      if (!clickedInsideAnyDropdown) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
@@ -32,6 +55,10 @@ export default function Header() {
         mainWrapper.classList.remove("show-sidebar");
       }
     }
+  };
+
+  const LogOut = () => {
+    window.location.href = "/dashboard";
   };
 
   return (
@@ -77,15 +104,56 @@ export default function Header() {
           >
             <div className="d-flex align-items-center justify-content-between" style={{ height: "70px" }}>
               <ul className="navbar-nav flex-row ms-auto align-items-center justify-content-center">
-                <li className="nav-item dropdown">
-                  <a className="nav-link pe-0 cursor-pointer" id="drop1" aria-expanded="false">
+                <li className="nav-item nav-icon-hover-bg rounded-circle dropdown" ref={(el) => (dropdownRefs.current.notification = el)}>
+                  <a
+                    className="nav-link position-relative cursor-pointer"
+                    id="dropNotif"
+                    aria-expanded={activeDropdown === "notification"}
+                    onClick={() => toggleDropdown("notification")}
+                  >
+                    <LuBellRing size={18} />
+                    <div className="notification bg-primary rounded-circle"></div>
+                  </a>
+
+                  <div
+                    className={`dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up ${activeDropdown === "notification" ? "show" : ""
+                      }`}
+                    aria-labelledby="dropNotif"
+                  >
+                    <div className="d-flex align-items-center justify-content-between py-3 px-7">
+                      <h5 className="mb-0 fs-5 fw-semibold">Notifications</h5>
+                      <span className="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
+                    </div>
+                    <SimpleBar className="message-body">
+                      <div className="simplebar-content-wrapper" tabIndex="0" role="region" >
+                        <a className="py-6 px-7 d-flex align-items-center dropdown-item cursor-pointer">
+                          <span className="me-3">
+                            <img src="../assets/images/profile/user-2.jpg" alt="user" className="rounded-circle" width="48" height="48" />
+                          </span>
+                          <div className="w-100">
+                            <h6 className="mb-1 fw-semibold lh-base">Roman Joined the Team!</h6>
+                            <span className="fs-2 d-block text-body-secondary">Congratulate him</span>
+                          </div>
+                        </a>
+
+                      </div>
+                    </SimpleBar>
+                    <div className="py-6 px-7 mb-1">
+                      <button className="btn btn-outline-primary w-100">See All Notifications</button>
+                    </div>
+                  </div>
+                </li>
+                <li className="nav-item dropdown" ref={(el) => (dropdownRefs.current.user = el)}>
+                  <a className="nav-link pe-0 cursor-pointer" aria-expanded={activeDropdown === "user"}
+                    onClick={() => toggleDropdown("user")}>
                     <div className="d-flex align-items-center">
                       <div className="user-profile-img">
                         <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg" className="rounded-circle" width="35" height="35" alt="modernize-img" />
                       </div>
                     </div>
                   </a>
-                  <div className="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop1">
+                  <div className={`dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up ${activeDropdown === "user" ? "show" : ""
+                    }`}>
                     <div className="profile-dropdown position-relative" data-simplebar>
                       <div className="py-3 px-7 pb-0">
                         <h5 className="mb-0 fs-5 fw-semibold">User Profile</h5>
@@ -101,7 +169,7 @@ export default function Header() {
                         </div>
                       </div>
                       <div className="message-body">
-                        <Link href="/profile" className="py-8 px-7 mt-8 d-flex align-items-center">
+                        <Link href="#" className="py-8 px-7 mt-8 d-flex align-items-center">
                           <span className="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
                             <LuUser size={24} />
                           </span>
@@ -129,177 +197,8 @@ export default function Header() {
                           </div>
                         </a> */}
                       </div>
-                      {/* <div className="d-grid py-4 px-7 pt-8">
-                        <div className="upgrade-plan bg-primary-subtle position-relative overflow-hidden rounded-4 p-4 mb-9">
-                          <div className="row">
-                            <div className="col-6">
-                              <h5 className="fs-4 mb-3 fw-semibold">Unlimited Access</h5>
-                              <button className="btn btn-primary">Upgrade</button>
-                            </div>
-                            <div className="col-6">
-                              <div className="m-n4 unlimited-img">
-                                <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/backgrounds/unlimited-bg.png" alt="modernize-img" className="w-100" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <a href="https://bootstrapdemos.adminmart.com/modernize/dist/main/authentication-login.html" className="btn btn-outline-primary">Log Out</a>
-                      </div> */}
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </div>
-      <div className="app-header with-horizontal">
-        <nav className="navbar navbar-expand-xl container-fluid p-0">
-          <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <div className="d-flex align-items-center justify-content-between px-0 px-xl-8">
-              <a href="javascript:void(0)" className="nav-link round-40 p-1 ps-0 d-flex d-xl-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar" aria-controls="offcanvasWithBothOptions">
-                <i className="ti ti-align-justified fs-7"></i>
-              </a>
-              <ul className="navbar-nav flex-row ms-auto align-items-center justify-content-center">
-                <li className="nav-item nav-icon-hover-bg rounded-circle">
-                  <a className="nav-link moon dark-layout" href="javascript:void(0)">
-                    <i className="ti ti-moon moon"></i>
-                  </a>
-                  <a className="nav-link sun light-layout" href="javascript:void(0)">
-                    <i className="ti ti-sun sun"></i>
-                  </a>
-                </li>
-                <li className="nav-item nav-icon-hover-bg rounded-circle">
-                  <a className="nav-link position-relative" href="javascript:void(0)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                    <i className="ti ti-basket"></i>
-                    <span className="popup-badge rounded-pill bg-danger text-white fs-2">2</span>
-                  </a>
-                </li>
-                <li className="nav-item nav-icon-hover-bg rounded-circle dropdown">
-                  <a className="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
-                    <i className="ti ti-bell-ringing"></i>
-                    <div className="notification bg-primary rounded-circle"></div>
-                  </a>
-                  <div className="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                    <div className="d-flex align-items-center justify-content-between py-3 px-7">
-                      <h5 className="mb-0 fs-5 fw-semibold">Notifications</h5>
-                      <span className="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
-                    </div>
-                    <div className="message-body" data-simplebar>
-                      <a href="javascript:void(0)" className="py-6 px-7 d-flex align-items-center dropdown-item">
-                        <span className="me-3">
-                          <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-2.jpg" alt="user" className="rounded-circle" width="48" height="48" />
-                        </span>
-                        <div className="w-100">
-                          <h6 className="mb-1 fw-semibold lh-base">Roman Joined the Team!</h6>
-                          <span className="fs-2 d-block text-body-secondary">Congratulate him</span>
-                        </div>
-                      </a>
-                      <a href="javascript:void(0)" className="py-6 px-7 d-flex align-items-center dropdown-item">
-                        <span className="me-3">
-                          <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-3.jpg" alt="user" className="rounded-circle" width="48" height="48" />
-                        </span>
-                        <div className="w-100">
-                          <h6 className="mb-1 fw-semibold lh-base">New message</h6>
-                          <span className="fs-2 d-block text-body-secondary">Salma sent you new message</span>
-                        </div>
-                      </a>
-                      <a href="javascript:void(0)" className="py-6 px-7 d-flex align-items-center dropdown-item">
-                        <span className="me-3">
-                          <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-4.jpg" alt="user" className="rounded-circle" width="48" height="48" />
-                        </span>
-                        <div className="w-100">
-                          <h6 className="mb-1 fw-semibold lh-base">Bianca sent payment</h6>
-                          <span className="fs-2 d-block text-body-secondary">Check your earnings</span>
-                        </div>
-                      </a>
-                      <a href="javascript:void(0)" className="py-6 px-7 d-flex align-items-center dropdown-item">
-                        <span className="me-3">
-                          <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-5.jpg" alt="user" className="rounded-circle" width="48" height="48" />
-                        </span>
-                        <div className="w-100">
-                          <h6 className="mb-1 fw-semibold lh-base">Jolly completed tasks</h6>
-                          <span className="fs-2 d-block text-body-secondary">Assign her new tasks</span>
-                        </div>
-                      </a>
-                      <a href="javascript:void(0)" className="py-6 px-7 d-flex align-items-center dropdown-item">
-                        <span className="me-3">
-                          <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-6.jpg" alt="user" className="rounded-circle" width="48" height="48" />
-                        </span>
-                        <div className="w-100">
-                          <h6 className="mb-1 fw-semibold lh-base">John received payment</h6>
-                          <span className="fs-2 d-block text-body-secondary">$230 deducted from account</span>
-                        </div>
-                      </a>
-                      <a href="javascript:void(0)" className="py-6 px-7 d-flex align-items-center dropdown-item">
-                        <span className="me-3">
-                          <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-7.jpg" alt="user" className="rounded-circle" width="48" height="48" />
-                        </span>
-                        <div className="w-100">
-                          <h6 className="mb-1 fw-semibold lh-base">Roman Joined the Team!</h6>
-                          <span className="fs-2 d-block text-body-secondary">Congratulate him</span>
-                        </div>
-                      </a>
-                    </div>
-                    <div className="py-6 px-7 mb-1">
-                      <button className="btn btn-outline-primary w-100">See All Notifications</button>
-                    </div>
-                  </div>
-                </li>
-                <li className="nav-item dropdown">
-                  <a className="nav-link pe-0" href="javascript:void(0)" id="drop1" aria-expanded="false">
-                    <div className="d-flex align-items-center">
-                      <div className="user-profile-img">
-                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg" className="rounded-circle" width="35" height="35" alt="modernize-img" />
-                      </div>
-                    </div>
-                  </a>
-                  <div className="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop1">
-                    <div className="profile-dropdown position-relative" data-simplebar>
-                      <div className="py-3 px-7 pb-0">
-                        <h5 className="mb-0 fs-5 fw-semibold">User Profile</h5>
-                      </div>
-                      <div className="d-flex align-items-center py-9 mx-7 border-bottom">
-                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg" className="rounded-circle" width="80" height="80" alt="modernize-img" />
-                        <div className="ms-3">
-                          <h5 className="mb-1 fs-3">Zebew Anderson</h5>
-                          <span className="mb-1 d-block">Admin</span>
-                          <p className="mb-0 d-flex align-items-center gap-2">
-                            <LuMail /> admin@pparl.com
-                          </p>
-                        </div>
-                      </div>
-                      <div className="message-body">
-                        <a href="https://bootstrapdemos.adminmart.com/modernize/dist/main/page-user-profile.html" className="py-8 px-7 mt-8 d-flex align-items-center">
-                          <span className="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
-                            <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/svgs/icon-account.svg" alt="modernize-img" width="24" height="24" />
-                          </span>
-                          <div className="w-100 ps-3">
-                            <h6 className="mb-1 fs-3 fw-semibold lh-base">My Profile</h6>
-                            <span className="fs-2 d-block text-body-secondary">Account Settings</span>
-                          </div>
-                        </a>
-                        <a href="https://bootstrapdemos.adminmart.com/modernize/dist/main/app-email.html" className="py-8 px-7 d-flex align-items-center">
-                          <span className="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
-                            <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/svgs/icon-inbox.svg" alt="modernize-img" width="24" height="24" />
-                          </span>
-                          <div className="w-100 ps-3">
-                            <h6 className="mb-1 fs-3 fw-semibold lh-base">My Inbox</h6>
-                            <span className="fs-2 d-block text-body-secondary">Messages & Emails</span>
-                          </div>
-                        </a>
-                        <a href="https://bootstrapdemos.adminmart.com/modernize/dist/main/app-notes.html" className="py-8 px-7 d-flex align-items-center">
-                          <span className="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
-                            <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/svgs/icon-tasks.svg" alt="modernize-img" width="24" height="24" />
-                          </span>
-                          <div className="w-100 ps-3">
-                            <h6 className="mb-1 fs-3 fw-semibold lh-base">My Task</h6>
-                            <span className="fs-2 d-block text-body-secondary">To-do and Daily Tasks</span>
-                          </div>
-                        </a>
-                      </div>
                       <div className="d-grid py-4 px-7 pt-8">
-                        <div className="upgrade-plan bg-primary-subtle position-relative overflow-hidden rounded-4 p-4 mb-9">
+                        {/* <div className="upgrade-plan bg-primary-subtle position-relative overflow-hidden rounded-4 p-4 mb-9">
                           <div className="row">
                             <div className="col-6">
                               <h5 className="fs-4 mb-3 fw-semibold">Unlimited Access</h5>
@@ -311,8 +210,8 @@ export default function Header() {
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <a href="https://bootstrapdemos.adminmart.com/modernize/dist/main/authentication-login.html" className="btn btn-outline-primary">Log Out</a>
+                        </div> */}
+                        <a onClick={LogOut} className="btn btn-outline-danger">Log Out</a>
                       </div>
                     </div>
                   </div>
@@ -321,7 +220,7 @@ export default function Header() {
             </div>
           </div>
         </nav>
-      </div>
+      </div >
     </header >
   );
 };

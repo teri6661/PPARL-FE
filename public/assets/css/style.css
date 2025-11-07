@@ -3851,7 +3851,7 @@ progress {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #5a6a85;
+  color: #2a3547;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -3878,7 +3878,7 @@ progress {
 }
 
 .form-control:focus {
-  color: #5a6a85;
+  color: #2a3547;
   background-color: transparent;
   border-color: #aec3ff;
   outline: 0;
@@ -3915,7 +3915,7 @@ progress {
   padding: 8px 16px;
   margin: -8px -16px;
   margin-inline-end: 16px;
-  color: #5a6a85;
+  color: #2a3547;
   background-color: var(--bs-tertiary-bg);
   pointer-events: none;
   border-color: inherit;
@@ -4033,7 +4033,7 @@ textarea.form-control-lg {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #5a6a85;
+  color: #2a3547;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -4520,11 +4520,11 @@ textarea.form-control-lg {
 
 .input-group .btn {
   position: relative;
-  z-index: 2;
+  /* z-index: 2; */
 }
 
 .input-group .btn:focus {
-  z-index: 5;
+  /* z-index: 5; */
 }
 
 .input-group-text {
@@ -23508,8 +23508,14 @@ pre.code-view code.hljs {
 }
 
 .brand-logo {
-  min-height: 70px;
+  min-height: 72px;
   padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .brand-logo {
+    min-height: 76px;
+  }
 }
 
 .sidebar-nav ul .sidebar-item .sidebar-link {
@@ -23772,8 +23778,9 @@ pre.code-view code.hljs {
   color: var(--bs-primary);
 }
 
-.topbar .navbar .navbar-nav .nav-item.dropdown:hover .dropdown-menu {
-  display: block;
+/* Tampilkan menu hanya saat dropdown aktif (klik) */
+.topbar .navbar .navbar-nav .nav-item.dropdown.show .dropdown-menu {
+  display: block !important;
 }
 
 .topbar .navbar .navbar-nav .nav-item .nav-link {
@@ -37482,4 +37489,28 @@ input:-webkit-autofill {
   height: 40px;
   font-size: 16px;
   color: #555;
+}
+
+.no-caret::after {
+  display: none !important;
+}
+
+.pagination .page-link:focus,
+.pagination .page-link:active {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+button {
+  box-shadow: none !important;
+}
+
+.custom-modal .modal-content {
+  padding: 1rem 1.5rem; /* atur sesuai selera, 1rem = 16px */
+  border-radius: 1rem; /* opsional, biar lebih lembut */
+}
+
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
 }

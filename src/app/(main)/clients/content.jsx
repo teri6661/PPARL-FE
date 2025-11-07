@@ -29,11 +29,11 @@ const Content = () => {
           <div className="d-flex justify-content-between align-items-center mb-3 p-3 rounded-4 shadow-sm border border-gray-400">
 
             {/* Search Input */}
-            <div className="me-3" style={{ maxWidth: '400px', flexGrow: 1 }}>
+            <div className="me-3" style={{ maxWidth: '300px', flexGrow: 1 }}>
               <input
                 type="search"
                 className="form-control"
-                placeholder="Search clients..."
+                placeholder="Search"
               />
             </div>
 

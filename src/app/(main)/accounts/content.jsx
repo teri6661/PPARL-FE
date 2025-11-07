@@ -3,13 +3,62 @@ import { useState } from "react";
 import { LuLayoutGrid, LuPlus, LuTable2 } from "react-icons/lu";
 import Table from "./component/table";
 import Card from "./component/card";
-import AccountModal from "./component/account-modal"; // import modal
+import AccountModal from "./component/account-modal";
 
 const Content = () => {
+  const [data, setData] = useState([
+    {
+      uuid: 1,
+      fullname: "John Doe",
+      email: "admin@a.com",
+      profile_pic: null,
+      role: "Admin",
+      status: "Active",
+      created_at: "2025-01-01",
+    },
+    {
+      uuid: 2,
+      fullname: "Alice Smith",
+      email: "admin@b.com",
+      profile_pic: null,
+      role: "Manager",
+      status: "Active",
+      created_at: "2025-01-05",
+    },
+    {
+      uuid: 3,
+      fullname: "Bob Johnson",
+      email: "admin@c.com",
+      profile_pic: null,
+      role: "Viewer",
+      status: "Inactive",
+      created_at: "2025-01-10",
+    },
+    {
+      uuid: 4,
+      fullname: "Eva Brown",
+      profile_pic: null,
+      role: "Admin",
+      status: "Active",
+      created_at: "2025-01-15",
+    },
+    {
+      uuid: 5,
+      fullname: "Michael Lee",
+      profile_pic: null,
+      role: "Editor",
+      status: "Inactive",
+      created_at: "2025-01-20",
+    },
+  ]);
   const [viewMode, setViewMode] = useState("table");
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState("add");
   const [selectedAccount, setSelectedAccount] = useState(null);
+
+  // State untuk Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3; // Menampilkan 3 item per halaman
 
   const activeClass = "btn-dark-red";
   const inactiveClass = "btn-outline-dark-red";
@@ -36,6 +85,21 @@ const Content = () => {
     }
   };
 
+  // Logika Pagination
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const showingFrom = indexOfFirstItem + 1;
+  const showingTo = Math.min(indexOfLastItem, data.length);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+
   return (
     <div className="body-wrapper">
       <div className="container-fluid">
@@ -57,11 +121,11 @@ const Content = () => {
 
           {/* Control Bar */}
           <div className="d-flex justify-content-between align-items-center mb-3 p-3 rounded-4 shadow-sm border border-gray-400">
-            <div className="me-3" style={{ maxWidth: '400px', flexGrow: 1 }}>
+            <div className="me-3" style={{ maxWidth: '300px', flexGrow: 1 }}>
               <input
                 type="search"
                 className="form-control"
-                placeholder="Search clients..."
+                placeholder="Search"
               />
             </div>
             <div className="btn-group" role="group">
@@ -85,10 +149,40 @@ const Content = () => {
           {/* Konten */}
           <div className="card p-3 rounded-4 shadow-sm border border-gray-400">
             {viewMode === 'table' ? (
-              <Table onEdit={handleEdit} />
+              <Table data={currentItems} onEdit={handleEdit} totalData={data.length} />
             ) : (
-              <Card onEdit={handleEdit} />
+              <Card data={currentItems} onEdit={handleEdit} totalData={data.length} />
             )}
+            {/* Pagination Footer */}
+            <div className="d-flex justify-content-between align-items-center mt-3">
+              {/* Info jumlah hasil */}
+              <div>
+                <small className="text-muted fw-bold fs-3">
+                  Showing {showingFrom}–{showingTo} of {data.length} results
+                </small>
+              </div>
+
+              {/* Pagination */}
+              <ul className="pagination mb-0">
+                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                  <button className="page-link link fw-bold" onClick={() => paginate(currentPage - 1)}>
+                    Previous
+                  </button>
+                </li>
+                {pageNumbers.map(number => (
+                  <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                    <button onClick={() => paginate(number)} className="page-link link fw-bold">
+                      {number}
+                    </button>
+                  </li>
+                ))}
+                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                  <button className="page-link link fw-bold" onClick={() => paginate(currentPage + 1)}>
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -101,7 +195,7 @@ const Content = () => {
         initialData={selectedAccount}
         onSubmit={handleSubmit}
       />
-    </div>
+    </div >
   );
 };
 
