@@ -1,15 +1,15 @@
 import { LuActivity, LuArrowUpRight, LuAward, LuBadge, LuBriefcase, LuFolderOpen, LuSmile, LuStar, LuTrendingUp, LuUser, LuUserCheck, LuZap } from "react-icons/lu";
 
-const Table = ({ data, onEdit, totalData }) => {
+const Table = ({ data, onEdit }) => {
 
   const getStatusBadge = (status) => {
     switch (status) {
       case 'Active':
-        return <span className="badge text-bg-success fs-2">Active</span>;
+        return <span className="badge text-bg-success fw-bold fs-2">Active</span>;
       case 'Inactive':
-        return <span className="badge text-bg-warning fs-2">Inactive</span>;
+        return <span className="badge text-bg-warning fw-bold fs-2">Inactive</span>;
       default:
-        return <span className="badge text-bg-secondary fs-2">{status}</span>;
+        return <span className="badge text-bg-secondary fw-bold fs-2">{status}</span>;
     }
   };
 
@@ -29,44 +29,53 @@ const Table = ({ data, onEdit, totalData }) => {
               </tr>
             </thead>
             <tbody>
-              {data.map((account) => (
-                <tr key={account.uuid}>
-                  <td>
-                    <div className="d-flex align-items-center gap-3">
-                      <span className="avatar-initial">
-                        {account.fullname
-                          .split(" ")
-                          .map((word) => word[0])
-                          .join("")
-                          .substring(0, 2)
-                          .toUpperCase()}
-                      </span>
-                      <div>
-                        <div className="fw-bold">{account.fullname}</div>
-                        <div className="text-muted small">{account.role.toLowerCase()}@{account.fullname.replace(/\s/g, '').toLowerCase()}.com</div>
+              {data.length > 0 ? (
+                data.map((account) => (
+                  <tr key={account.uuid}>
+                    <td>
+                      <div className="d-flex align-items-center gap-3">
+                        <span className="avatar-initial">
+                          {account.fullname
+                            .split(" ")
+                            .map((word) => word[0])
+                            .join("")
+                            .substring(0, 2)
+                            .toUpperCase()}
+                        </span>
+                        <div>
+                          <div className="fw-bold">{account.fullname}</div>
+                          <div className="text-muted small">
+                            {account.role.toLowerCase()}@{account.fullname.replace(/\s/g, '').toLowerCase()}.com
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </td>
+                    </td>
 
-                  <td>{account.email}</td>
+                    <td>{account.email}</td>
 
-                  <td><span className="badge text-bg-primary fs-2">{account.role}</span></td>
+                    <td><span className="badge text-bg-primary fw-bold fs-2">{account.role}</span></td>
 
-                  <td>{getStatusBadge(account.status)}</td>
+                    <td>{getStatusBadge(account.status)}</td>
 
-                  <td>{account.created_at}</td>
+                    <td>{account.created_at}</td>
 
-                  <td>
-                    {/* <button className="btn btn-sm btn-outline-primary me-2">View</button> */}
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      onClick={() => onEdit(account)}
-                    >
-                      Edit
-                    </button>
+                    <td>
+                      <button
+                        className="btn btn-sm btn-outline-secondary"
+                        onClick={() => onEdit(account)}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" className="text-center py-3 text-muted">
+                    No data available
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

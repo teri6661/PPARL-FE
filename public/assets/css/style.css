@@ -3855,7 +3855,8 @@ progress {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: transparent;
+  /* background-color: transparent; */
+  background-color: #fff !important;
   background-clip: padding-box;
   border: var(--bs-border-width) solid #dfe5ef;
   border-radius: 7px;
@@ -3880,7 +3881,7 @@ progress {
 .form-control:focus {
   color: #2a3547;
   background-color: transparent;
-  border-color: #aec3ff;
+  /* border-color: #aec3ff; */
   outline: 0;
   box-shadow: var(--bs-box-shadow-inset), 0 0 0 0.25rem rgba(93, 135, 255, 0.25);
 }
@@ -4155,7 +4156,7 @@ textarea.form-control-lg {
 .form-check-input:focus {
   border-color: #aec3ff;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(93, 135, 255, 0.25);
+  /* box-shadow: 0 0 0 0.25rem rgba(93, 135, 255, 0.25); */
 }
 
 .form-check-input:checked {
@@ -37513,4 +37514,12 @@ button {
 .recharts-wrapper:focus,
 .recharts-surface:focus {
   outline: none;
+}
+
+.custom-toast .Toastify__toast {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  /* font-size: 14px; */
+}
+.Toastify__toast-container {
+  white-space: pre-line;
 }

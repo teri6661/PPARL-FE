@@ -1,15 +1,13 @@
-import { LuActivity, LuArrowUpRight, LuAward, LuBadge, LuBriefcase, LuFolderOpen, LuSmile, LuStar, LuTrendingUp, LuUser, LuUserCheck, LuZap } from "react-icons/lu";
+import { IoLocationOutline } from "react-icons/io5";
 
-const Table = () => {
-
+const Table = ({ data, onEdit }) => {
   return (
     <div className="row">
       <div className="table-responsive">
-        {/* Wrapper div untuk menerapkan rounded, overflow-hidden, dan border luar yang mulus */}
+        {/* Wrapper div untuk rounded, shadow, dan border halus */}
         <div className="rounded-4 shadow-sm overflow-hidden border border-gray-200">
           <table className="table align-middle table-hover table-bordered mb-0">
-            {/* Tambahkan class bg-secondary untuk latar belakang abu-abu gelap dan text-white untuk teks putih */}
-            <thead className="bg-primary">
+            <thead className="bg-primary text-white">
               <tr>
                 <th>Company</th>
                 <th>Industry</th>
@@ -21,32 +19,66 @@ const Table = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>TechCorp Inc.</td>
-                <td><span className="badge text-bg-light">Technology</span></td>
-                <td>San Francisco, CA</td>
-                <td>John Smith</td>
-                <td>john.smith@techcorp.com</td>
-                <td>+1-555-0123</td>
-                <td><button className="btn btn-sm btn-outline-primary me-2">View</button><button className="btn btn-sm btn-outline-secondary">Edit</button></td>
-              </tr>
-              <tr>
-                <td>InnovateHub</td>
-                <td><span className="badge text-bg-light text-purple-500">Consulting</span></td>
-                <td>New York, NY</td>
-                <td>Emma Wilson</td>
-                <td>emma.wilson@innovatehub.com</td>
-                <td>+1-555-0456</td>
-                <td><button className="btn btn-sm btn-outline-primary me-2">View</button><button className="btn btn-sm btn-outline-secondary">Edit</button></td>
-              </tr>
+              {data.length > 0 ? (
+                data.map((item) => {
+                  return (
+                    <tr key={item.id}>
+                      <td>{item.company_name}</td>
+                      <td>
+                        <span className="badge text-bg-primary fs-2 fw-bold">
+                          {item.industry}
+                        </span>
+                      </td>
+                      <td>
+                        {item.locations && item.locations.length > 0 ? (
+                          <ul className="list-unstyled mb-0">
+                            {item.locations.map((loc, idx) => (
+                              <li key={idx}>
+                                <span>
+                                  <IoLocationOutline /> {loc.city}, {loc.country}
+                                </span>
+                                {loc.primary && (
+                                  <span className="badge bg-success fs-1 fw-bold ms-2">Primary</span>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <span className="text-muted">No locations</span>
+                        )}
+                      </td>
+                      <td>{item.contact_person}</td>
+                      <td>{item.email}</td>
+                      <td>{item.phone}</td>
+                      <td>
+                        {/* <button
+                          className="btn btn-sm btn-outline-primary me-2"
+                        >
+                          View
+                        </button> */}
+                        <button
+                          className="btn btn-sm btn-outline-secondary"
+                          onClick={() => onEdit(item)}
+                        >
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan="7" className="text-center py-3 text-muted">
+                    No data available
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
-        {/* Pindahkan "Showing results" di luar div wrapper tabel */}
-        <small className="text-muted mt-2 d-block">Showing 2 of 2 results</small>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Table;

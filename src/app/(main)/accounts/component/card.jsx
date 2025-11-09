@@ -1,9 +1,9 @@
 import moment from "moment";
 import { Dropdown } from "react-bootstrap";
-import { LuMail, LuCalendar, LuEye, LuPencil } from "react-icons/lu";
+import { LuMail, LuCalendar, LuPencil } from "react-icons/lu";
 import { MdMoreVert } from "react-icons/md";
 
-const Card = ({ data, onEdit, totalData }) => {
+const Card = ({ data, onEdit }) => {
 
   const getStatusBadgeClass = (status) => {
     switch (status) {
