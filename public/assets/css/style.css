@@ -37523,3 +37523,39 @@ button {
 .Toastify__toast-container {
   white-space: pre-line;
 }
+
+/* React Picker */
+.react-datepicker {
+  font-family: var(--bs-font-sans-serif) !important;
+  /* font-size: 14px !important; */
+}
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  font-size: 0.82rem !important;
+}
+.react-datepicker__navigation {
+  top: 5px !important;
+}
+.react-datepicker__year-read-view--down-arrow {
+  top: 1px !important;
+}
+.react-datepicker-wrapper {
+  display: block !important;
+}
+.react-datepicker__year-dropdown-container {
+  margin-top: 8px !important; /* Atur jarak sesuai kebutuhan */
+}
+.react-datepicker__day--keyboard-selected {
+  border-radius: 0.3rem !important;
+  background-color: #216ba5 !important;
+  color: #fff !important;
+}
+.react-datepicker__time-container {
+  width: auto !important; /* Biar dropdown tidak terlalu kecil */
+}
+.react-datepicker__time-box {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Jarak antara dropdown jam & menit */
+}

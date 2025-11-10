@@ -3,6 +3,7 @@ import "./globals.css";
 
 // Import Komponen Layout
 // import Bootstrap from "@/app/layout/bootstrap";
+import "react-datepicker/dist/react-datepicker.css";
 
 // Custom Styles
 import "../../public/assets/css/style.css";

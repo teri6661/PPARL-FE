@@ -4,8 +4,7 @@ const Table = ({ data, onEdit }) => {
   return (
     <div className="row">
       <div className="table-responsive">
-        {/* Wrapper div untuk rounded, shadow, dan border halus */}
-        <div className="rounded-4 shadow-sm overflow-hidden border border-gray-200">
+        <div className="rounded-4 shadow-sm overflow-x-auto border border-gray-200">
           <table className="table align-middle table-hover table-bordered mb-0">
             <thead className="bg-primary text-white">
               <tr>

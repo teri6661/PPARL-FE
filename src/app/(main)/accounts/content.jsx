@@ -1,6 +1,6 @@
 'use client';
 import { useState } from "react";
-import { LuLayoutGrid, LuPlus, LuTable2 } from "react-icons/lu";
+import { LuLayoutGrid, LuPlus, LuSearch, LuTable2 } from "react-icons/lu";
 import Table from "./component/table";
 import Card from "./component/card";
 import AccountModal from "./component/account-modal";
@@ -121,11 +121,13 @@ const Content = () => {
 
           {/* Control Bar */}
           <div className="d-flex justify-content-between align-items-center mb-3 p-3 rounded-4 shadow-sm border border-gray-400">
-            <div className="me-3" style={{ maxWidth: '300px', flexGrow: 1 }}>
+            <div className="position-relative me-3" style={{ maxWidth: '300px', flexGrow: 1 }}>
+              <LuSearch className="top-50 position-absolute ms-2 text-muted translate-middle-y" />
               <input
                 type="search"
                 className="form-control"
                 placeholder="Search"
+                style={{ paddingLeft: '2rem' }}
               />
             </div>
             <div className="btn-group" role="group">
@@ -134,14 +136,14 @@ const Content = () => {
                 className={`btn ${viewMode === 'cards' ? activeClass : inactiveClass}`}
                 onClick={() => setViewMode('cards')}
               >
-                <LuLayoutGrid size={16} /> Cards
+                <LuLayoutGrid size={16} /> <span className="d-none d-md-inline ms-1">Cards</span>
               </button>
               <button
                 type="button"
                 className={`btn ${viewMode === 'table' ? activeClass : inactiveClass}`}
                 onClick={() => setViewMode('table')}
               >
-                <LuTable2 size={16} /> Table
+                <LuTable2 size={16} /> <span className="d-none d-md-inline ms-1">Table</span>
               </button>
             </div>
           </div>

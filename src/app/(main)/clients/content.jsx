@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import { LuLayoutGrid, LuPlus, LuTable2 } from "react-icons/lu";
+import { LuLayoutGrid, LuPlus, LuSearch, LuTable2 } from "react-icons/lu";
 import Table from "./component/table";
 import Card from "./component/card";
 import ClientModal from "./component/client-modal";
@@ -112,11 +112,13 @@ const Content = () => {
           <div className="d-flex justify-content-between align-items-center mb-3 p-3 rounded-4 shadow-sm border border-gray-400">
 
             {/* Search Input */}
-            <div className="me-3" style={{ maxWidth: '300px', flexGrow: 1 }}>
+            <div className="position-relative me-3" style={{ maxWidth: '300px', flexGrow: 1 }}>
+              <LuSearch className="top-50 position-absolute ms-2 text-muted translate-middle-y" />
               <input
                 type="search"
                 className="form-control"
                 placeholder="Search"
+                style={{ paddingLeft: '2rem' }}
               />
             </div>
 
@@ -127,57 +129,54 @@ const Content = () => {
                 className={`btn ${viewMode === 'cards' ? activeClass : inactiveClass}`}
                 onClick={() => setViewMode('cards')}
               >
-                <LuLayoutGrid size={16} /> Cards
+                <LuLayoutGrid size={16} /> <span className="d-none d-md-inline ms-1">Cards</span>
               </button>
               <button
                 type="button"
                 className={`btn ${viewMode === 'table' ? activeClass : inactiveClass}`}
                 onClick={() => setViewMode('table')}
               >
-                <LuTable2 size={16} /> Table
+                <LuTable2 size={16} /> <span className="d-none d-md-inline ms-1">Table</span>
               </button>
             </div>
           </div>
 
+          {/* Konten */}
           <div className="card p-3 rounded-4 shadow-sm border border-gray-400">
-
-            {/* Konten */}
-            <div className="card p-3 rounded-4 shadow-sm border border-gray-400">
-              {viewMode === 'table' ? (
-                <Table data={currentItems} onEdit={handleEdit} totalData={data.length} />
-              ) : (
-                <Card data={currentItems} onEdit={handleEdit} totalData={data.length} />
-              )}
-              {/* Pagination Footer */}
-              <div className="d-flex justify-content-between align-items-center mt-3">
-                {/* Info jumlah hasil */}
-                <div>
-                  <small className="text-muted fw-bold fs-3">
-                    Showing {showingFrom}–{showingTo} of {data.length} results
-                  </small>
-                </div>
-
-                {/* Pagination */}
-                <ul className="pagination mb-0">
-                  <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                    <button className="page-link link fw-bold" onClick={() => paginate(currentPage - 1)}>
-                      Previous
-                    </button>
-                  </li>
-                  {pageNumbers.map(number => (
-                    <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
-                      <button onClick={() => paginate(number)} className="page-link link fw-bold">
-                        {number}
-                      </button>
-                    </li>
-                  ))}
-                  <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                    <button className="page-link link fw-bold" onClick={() => paginate(currentPage + 1)}>
-                      Next
-                    </button>
-                  </li>
-                </ul>
+            {viewMode === 'table' ? (
+              <Table data={currentItems} onEdit={handleEdit} totalData={data.length} />
+            ) : (
+              <Card data={currentItems} onEdit={handleEdit} totalData={data.length} />
+            )}
+            {/* Pagination Footer */}
+            <div className="d-flex justify-content-between align-items-center mt-3">
+              {/* Info jumlah hasil */}
+              <div>
+                <small className="text-muted fw-bold fs-3">
+                  Showing {showingFrom}–{showingTo} of {data.length} results
+                </small>
               </div>
+
+              {/* Pagination */}
+              <ul className="pagination mb-0">
+                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                  <button className="page-link link fw-bold" onClick={() => paginate(currentPage - 1)}>
+                    Previous
+                  </button>
+                </li>
+                {pageNumbers.map(number => (
+                  <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                    <button onClick={() => paginate(number)} className="page-link link fw-bold">
+                      {number}
+                    </button>
+                  </li>
+                ))}
+                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                  <button className="page-link link fw-bold" onClick={() => paginate(currentPage + 1)}>
+                    Next
+                  </button>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
