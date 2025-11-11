@@ -2,6 +2,8 @@ import { LuFolderOpen, LuHandshake, LuMonitorSpeaker, LuPlus, LuUserCheck, LuUse
 import CardTotal from "./component/card-total";
 import Link from "next/link";
 import ChartPanel from "./component/chart-panel";
+import SystemModules from "./component/system-modules";
+import TopExperts from "./component/top-experts";
 
 const Content = () => {
 
@@ -59,10 +61,20 @@ const Content = () => {
           </div>
         </div>
 
-        {/* Ini adalah tempat untuk meletakkan 4 card statistik yang sebelumnya kita buat */}
-        <CardTotal />
-        {/* Ini adalah tempat untuk meletakkan chart */}
-        <ChartPanel />
+        <div className="row mb-3 justify-content-center">
+          {/* Ini adalah tempat untuk meletakkan 4 card statistik yang sebelumnya kita buat */}
+          <CardTotal />
+          {/* Ini adalah tempat untuk meletakkan chart */}
+          <ChartPanel />
+          <div className="row g-3">
+            <div className="col-md-4 mb-4">
+              <TopExperts />
+            </div>
+            <div className="col-md-8 mb-4">
+              <SystemModules />
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>

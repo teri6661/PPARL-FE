@@ -23872,11 +23872,11 @@ pre.code-view code.hljs {
   right: 6px;
 }
 
-@media (max-width: 991.98px) {
+/* @media (max-width: 991.98px) {
   .popup-badge {
     top: 14px;
   }
-}
+} */
 
 @media (max-width: 767.98px) {
   .topbar .navbar-nav .dropdown-menu {
@@ -37558,4 +37558,17 @@ button {
   display: flex;
   justify-content: space-between;
   gap: 10px; /* Jarak antara dropdown jam & menit */
+}
+
+/* Module System Card */
+.module-card {
+  transition: all 0.25s ease;
+  border: 1px solid #dee2e6;
+}
+
+.module-card:hover {
+  /* background-color: #fff !important; */
+  border: 1px solid #d092fc !important;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+  transform: translateY(0px) scale(1.02);
 }
