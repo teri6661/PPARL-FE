@@ -4,7 +4,7 @@ const CardTotal = () => {
   const year = new Date().getFullYear();
 
   return (
-    <div className="row g-3">
+    <div className="row gx-3 gy-2">
 
       {/* CARD 1: Total Experts */}
       <div className="col-lg-3 col-md-6">

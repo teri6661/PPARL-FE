@@ -75,7 +75,7 @@ const TopExperts = () => {
   };
 
   return (
-    <div className="card border-1 p-3 shadow-sm rounded-4">
+    <div className="card border-1 p-4 shadow-sm rounded-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div className="d-flex align-items-start gap-2">
           <LuStar className="text-warning" size={22} />

@@ -29,10 +29,10 @@ const dataPie = [
 
 const ChartPanel = () => {
   return (
-    <div className="row g-3">
+    <div className="row gx-3 gy-2">
       {/* Left: Area Chart */}
       <div className="col-md-6">
-        <div className="card border-1 p-3 shadow-sm rounded-4">
+        <div className="card border-1 p-4 shadow-sm rounded-4">
           <div className="d-flex justify-content-between align-items-start mb-3">
             <div>
               <h6 className="fw-semibold fs-4">
@@ -83,7 +83,7 @@ const ChartPanel = () => {
 
       {/* Right: Donut Chart */}
       <div className="col-md-6">
-        <div className="card border-1 p-3 shadow-sm rounded-4">
+        <div className="card border-1 p-4 shadow-sm rounded-4">
           <div className="d-flex justify-content-between align-items-start mb-3">
             <div>
               <h6 className="fw-semibold fs-4">

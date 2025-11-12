@@ -6,8 +6,9 @@ import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { IoClose } from "react-icons/io5";
-import { LuChartColumn, LuUsers, LuFileText, LuUser, LuFolder, LuFolderOpen, LuHandshake, LuBriefcase, LuActivity, LuUserCheck, LuBuilding2, LuMonitorSpeaker } from 'react-icons/lu';
+import { IoClose, IoPower } from "react-icons/io5";
+import { TiPower } from "react-icons/ti";
+import { LuChartColumn, LuUsers, LuFolder, LuFolderOpen, LuHandshake, LuBriefcase, LuActivity, LuUserCheck, LuBuilding2, LuMonitorSpeaker } from 'react-icons/lu';
 
 const Sidebar = forwardRef((props, ref) => {
   const barRef = useRef(null);
@@ -224,11 +225,15 @@ const Sidebar = forwardRef((props, ref) => {
               <span className="fs-2">Admin</span>
             </div>
             <button
+              onClick={() => alert("Logging out...")}
               className="border-0 bg-transparent text-primary ms-auto"
               type="button"
               aria-label="Logout"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Logout"
             >
-              <i className="ti ti-power fs-6"></i>
+              <IoPower className="fs-6" />
             </button>
           </div>
         </div>

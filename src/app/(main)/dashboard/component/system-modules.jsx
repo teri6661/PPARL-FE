@@ -63,7 +63,7 @@ const modules = [
 
 const SystemModules = () => {
   return (
-    <div className="card border-1 p-3 shadow-sm rounded-4">
+    <div className="card border-1 p-4 shadow-sm rounded-4">
       <div className="d-flex align-items-start gap-2 mb-3">
         <LuTarget className="text-purple" size={22} />
         <div>
@@ -78,7 +78,7 @@ const SystemModules = () => {
         {modules.map((mod, i) => (
           <div key={i} className="col-12 col-md-6 col-lg-4">
             <Link href={mod.link} className="text-decoration-none">
-              <div className="module-card border rounded-4 p-3 h-100 bg-light">
+              <div className="module-card p-3 border rounded-4 h-100 bg-light">
                 <div className="d-flex justify-content-between align-items-start mb-2">
                   <div className="d-flex align-items-start gap-2">
                     <div className="p-2 bg-white rounded-3 shadow-sm">

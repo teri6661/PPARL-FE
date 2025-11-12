@@ -4,6 +4,8 @@ import Link from "next/link";
 import ChartPanel from "./component/chart-panel";
 import SystemModules from "./component/system-modules";
 import TopExperts from "./component/top-experts";
+import NdaExpiredAlert from "./component/nda-expired";
+import RecentActivity from "./component/recent-activity";
 
 const Content = () => {
 
@@ -66,12 +68,22 @@ const Content = () => {
           <CardTotal />
           {/* Ini adalah tempat untuk meletakkan chart */}
           <ChartPanel />
-          <div className="row g-3">
-            <div className="col-md-4 mb-4">
+          <div className="row gx-3 gy-2">
+            <div className="col-md-4">
               <TopExperts />
             </div>
-            <div className="col-md-8 mb-4">
+            <div className="col-md-8">
               <SystemModules />
+            </div>
+          </div>
+          <div className="row gx-3 gy-2">
+            <div className="col-md-12">
+              <NdaExpiredAlert />
+            </div>
+          </div>
+          <div className="row gx-3 gy-2">
+            <div className="col-md-12">
+              <RecentActivity />
             </div>
           </div>
         </div>
