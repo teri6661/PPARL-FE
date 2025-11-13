@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { useForm, useFieldArray } from "react-hook-form";
 import { toast } from "react-toastify";
+import SimpleBar from "simplebar-react";
 
 const ClientModal = ({ show, onHide, mode = "add", initialData = {}, onSubmit }) => {
   const {
@@ -91,7 +92,7 @@ const ClientModal = ({ show, onHide, mode = "add", initialData = {}, onSubmit })
       </Modal.Header>
 
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
-        <Modal.Body>
+        <SimpleBar className="modal-body" style={{ maxHeight: '70vh' }}>
           {/* Company Information */}
           <div className="mb-4 border rounded-3 p-3">
             <p className="fw-bolder text-dark mb-3">Company Information</p>
@@ -316,7 +317,7 @@ const ClientModal = ({ show, onHide, mode = "add", initialData = {}, onSubmit })
               </Row>
             </div>
           </div>
-        </Modal.Body>
+        </SimpleBar>
 
         <Modal.Footer>
           <Button variant="outline-danger" onClick={onHide}>

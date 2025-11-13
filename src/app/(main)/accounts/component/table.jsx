@@ -34,14 +34,23 @@ const Table = ({ data, onEdit }) => {
                   <tr key={account.uuid}>
                     <td>
                       <div className="d-flex align-items-center gap-3">
-                        <span className="avatar-initial">
-                          {account.fullname
-                            .split(" ")
-                            .map((word) => word[0])
-                            .join("")
-                            .substring(0, 2)
-                            .toUpperCase()}
-                        </span>
+                        {account.image ? (
+                          <img
+                            src={account.image}
+                            alt={account.name}
+                            className="rounded-circle object-fit-cover"
+                            style={{ width: 48, height: 48 }}
+                          />
+                        ) : (
+                          <span className="avatar-initial">
+                            {account.fullname
+                              .split(" ")
+                              .map((word) => word[0])
+                              .join("")
+                              .substring(0, 2)
+                              .toUpperCase()}
+                          </span>
+                        )}
                         <div>
                           <div className="fw-bold">{account.fullname}</div>
                           <div className="text-muted small">

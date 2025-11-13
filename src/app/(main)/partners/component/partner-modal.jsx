@@ -13,6 +13,7 @@ import {
   LuGlobe,
   LuHandshake,
 } from 'react-icons/lu';
+import SimpleBar from "simplebar-react";
 
 const partnerTypeOptions = [
   { value: 'Technology', label: 'Technology' },
@@ -140,7 +141,7 @@ const PartnerModal = ({ show, onHide, mode = "add", initialData = {}, onSubmit }
       </Modal.Header>
 
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
-        <Modal.Body>
+        <SimpleBar className="modal-body" style={{ maxHeight: '70vh' }}>
           <div className="d-flex flex-column gap-4">
 
             {/* 1. Company Information */}
@@ -442,7 +443,7 @@ const PartnerModal = ({ show, onHide, mode = "add", initialData = {}, onSubmit }
             </div>
 
           </div>
-        </Modal.Body>
+        </SimpleBar>
         <Modal.Footer>
           <Button variant="outline-danger" onClick={onHide}>
             Cancel

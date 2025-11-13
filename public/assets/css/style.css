@@ -12765,6 +12765,14 @@ fieldset:disabled .btn {
   -webkit-text-fill-color: transparent;
 }
 
+.text-light-purple {
+  color: #7b2ff7 !important; /* teks ungu */
+}
+
+.bg-light-purple {
+  background-color: #f5edff !important; /* latar ungu muda */
+}
+
 .text-purple {
   --bs-text-opacity: 1;
   color: #9b18f4;
@@ -37485,6 +37493,7 @@ input:-webkit-autofill {
   justify-content: center;
   border-radius: 50%;
   background-color: #f0f0f0;
+  /* background: "linear-gradient(135deg, #f3b5ff, #d18fff)"; */
   font-weight: bold;
   width: 48px;
   height: 48px;
@@ -37571,4 +37580,10 @@ button {
   border: 1px solid #d092fc !important;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
   transform: translateY(0px) scale(1.02);
+}
+
+/* RC Slider */
+.rc-slider {
+  width: calc(100% - 10px) !important;
+  left: 5px !important;
 }

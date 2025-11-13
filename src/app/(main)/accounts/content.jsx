@@ -15,6 +15,7 @@ const Content = () => {
       role: "Admin",
       status: "Active",
       created_at: "2025-01-01",
+      image: "https://randomuser.me/api/portraits/men/32.jpg",
     },
     {
       uuid: 2,
@@ -33,6 +34,7 @@ const Content = () => {
       role: "Viewer",
       status: "Inactive",
       created_at: "2025-01-10",
+      image: "https://randomuser.me/api/portraits/men/30.jpg",
     },
     {
       uuid: 4,

@@ -42,24 +42,24 @@ const Card = ({ data, onEdit }) => {
             {/* Header: Avatar + Nama + Dropdown */}
             <div className="d-flex align-items-start justify-content-between mb-3">
               {/* Avatar + Info */}
-              <div className="d-flex align-items-center">
-                <div
-                  className="avatar-initial me-3 d-flex justify-content-center align-items-center rounded-circle fw-bold"
-                  style={{
-                    backgroundColor: '#e0b0ff',
-                    color: '#6a0dad',
-                    width: '40px',
-                    height: '40px',
-                    fontSize: '18px',
-                  }}
-                >
-                  {account.fullname
-                    .split(" ")
-                    .map((word) => word[0])
-                    .join("")
-                    .substring(0, 2)
-                    .toUpperCase()}
-                </div>
+              <div className="d-flex align-items-center gap-2">
+                {account.image ? (
+                  <img
+                    src={account.image}
+                    alt={account.name}
+                    className="rounded-circle object-fit-cover"
+                    style={{ width: 48, height: 48 }}
+                  />
+                ) : (
+                  <span className="avatar-initial">
+                    {account.fullname
+                      .split(" ")
+                      .map((word) => word[0])
+                      .join("")
+                      .substring(0, 2)
+                      .toUpperCase()}
+                  </span>
+                )}
 
                 <div>
                   <p className="fw-bolder mb-1">{account.fullname}</p>
