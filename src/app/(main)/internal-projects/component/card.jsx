@@ -35,7 +35,7 @@ const Card = ({ data, onEdit }) => {
               onMouseLeave={() => setIsHovered(false)}>
               {/* Bagian Header dan Dropdown */}
               <div className="d-flex justify-content-between align-items-start">
-                <p className="fw-bolder mb-1">{project.title || 'No Project'}</p>
+                <p className="fw-bolder mb-1">{project.project_title || 'No Project'}</p>
 
                 {/* Dropdown (3 titik vertikal) */}
                 {isHovered && (

@@ -62,7 +62,7 @@ const Table = ({ data, onEdit, onView }) => {
                     </td>
 
                     {/* Title */}
-                    <td>{project.title}</td>
+                    <td>{project.project_title}</td>
 
                     {/* Category */}
                     <td>
