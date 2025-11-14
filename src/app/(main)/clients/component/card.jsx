@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { LuMapPin, LuMail, LuPhone, LuBuilding2, LuStar, LuPencil } from "react-icons/lu";
 import { MdMoreVert } from 'react-icons/md';
@@ -20,16 +20,19 @@ const Card = ({ data, onEdit }) => {
   };
 
   return (
-    <div className="row g-4 align-items-stretch" >
+    <div className="row g-4 align-items-stretch">
       {
-        data.map((company) => {
+        data.map((company, index) => {
           // Inisial untuk Primary Contact
           const initials = getInitials(company.contact_person);
+          const [isHovered, setIsHovered] = useState(false);
 
           return (
-            <div key={company.id} className="col-md-6 col-lg-4 col-xl-3">
+            <div key={index} className="col-md-6 col-lg-4 col-xl-3">
               {/* 2. Gunakan h-100 dan d-flex flex-column pada card */}
-              <div className="card shadow-sm p-4 h-100 d-flex flex-column border-0" style={{ borderRadius: '12px' }}>
+              <div className="card border shadow-sm p-3 h-100"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}>
 
                 {/* Pembungkus Konten Utama (akan meregang) */}
                 <div className="flex-grow-1">
@@ -45,40 +48,41 @@ const Card = ({ data, onEdit }) => {
 
                       {/* Nama Perusahaan dan Industri (stacking) */}
                       <div className="d-flex flex-column">
-                        <p className="mb-0 fw-bolder">{company.company_name}</p>
-                        <span className="badge bg-primary fs-2 text-white mt-1" style={{ alignSelf: 'flex-start' }}>
+                        <p className="mb-1 fw-bolder">{company.company_name}</p>
+                        <span className="badge bg-primary fs-2 text-white" style={{ alignSelf: 'flex-start' }}>
                           {company.industry}
                         </span>
                       </div>
                     </div>
 
                     {/* Kanan: Tombol Edit (menggunakan ms-auto untuk memposisikannya di paling kanan) */}
-                    <Dropdown align="end">
-                      <Dropdown.Toggle
-                        className="d-flex align-items-center justify-content-center border-0 shadow-none rounded-circle no-caret"
-                        id={`dropdown-more-${company.uuid}`}
-                        as="button"
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          background: "#bababa",
-                          padding: 0,
-                        }}
-                      >
-                        <MdMoreVert size={14} />
-                      </Dropdown.Toggle>
+                    {isHovered && (
+                      <Dropdown align="end">
+                        <Dropdown.Toggle
+                          className="d-flex align-items-center justify-content-center border-0 shadow-none rounded-circle no-caret"
+                          id={`dropdown-more-${index}`}
+                          as="button"
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            background: "#bababa",
+                            padding: 0,
+                            color: 'white'
+                          }}
+                        >
+                          <MdMoreVert size={14} />
+                        </Dropdown.Toggle>
 
-                      <Dropdown.Menu className="p-1">
-                        {/* <Dropdown.Item className="list-edit" onClick={() => handleView(account)}>
-  <LuEye size={16} className="me-2" /> View
-</Dropdown.Item> */}
-                        <Dropdown.Item className="list-edit px-3 py-1" onClick={() => onEdit(company)}>
-                          <LuPencil size={14} className="me-2" />
-                          <span className="fs-2 fw-bold">Edit</span>
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </div> {/* Penutup d-flex justify-content-between... */}
+                        {/* Mengganti fungsi onClick menjadi onEdit(company) */}
+                        <Dropdown.Menu className="p-1">
+                          <Dropdown.Item className="list-edit px-3 py-1" onClick={() => onEdit(company)}>
+                            <LuPencil size={14} className="me-2" />
+                            <span className="fs-3 fw-bold">Edit</span>
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    )}
+                  </div>
 
 
                   <hr className="my-3" />

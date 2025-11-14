@@ -60,7 +60,7 @@ const Content = () => {
 
   // State untuk Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // Menampilkan 3 item per halaman
+  const itemsPerPage = 20; // Menampilkan 3 item per halaman
 
   const activeClass = "btn-dark-red";
   const inactiveClass = "btn-outline-dark-red";
