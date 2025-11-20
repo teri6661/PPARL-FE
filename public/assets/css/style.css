@@ -10532,6 +10532,10 @@ fieldset:disabled .btn {
   border-left: 0 !important;
 }
 
+.border-grey {
+  border-color: #d1d1d1 !important;
+}
+
 .border-primary {
   --bs-border-opacity: 1;
   border-color: rgba(

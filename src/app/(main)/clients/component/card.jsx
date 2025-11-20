@@ -84,7 +84,6 @@ const Card = ({ data, onEdit }) => {
                     )}
                   </div>
 
-
                   <hr className="my-3" />
 
                   {/* Location Section: Menampilkan SEMUA Lokasi */}

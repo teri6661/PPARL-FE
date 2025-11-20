@@ -124,17 +124,17 @@ const Content = () => {
             <div className="btn-group" role="group">
               <button
                 type="button"
-                className={`btn ${viewMode === 'cards' ? activeClass : inactiveClass}`}
-                onClick={() => setViewMode('cards')}
-              >
-                <LuLayoutGrid size={16} /> <span className="d-none d-md-inline ms-1">Cards</span>
-              </button>
-              <button
-                type="button"
                 className={`btn ${viewMode === 'table' ? activeClass : inactiveClass}`}
                 onClick={() => setViewMode('table')}
               >
                 <LuTable2 size={16} /> <span className="d-none d-md-inline ms-1">Table</span>
+              </button>
+              <button
+                type="button"
+                className={`btn ${viewMode === 'cards' ? activeClass : inactiveClass}`}
+                onClick={() => setViewMode('cards')}
+              >
+                <LuLayoutGrid size={16} /> <span className="d-none d-md-inline ms-1">Cards</span>
               </button>
             </div>
           </div>
